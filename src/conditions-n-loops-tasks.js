@@ -305,10 +305,42 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
-}
 
+function getSpiralMatrix(size) {
+  const matrix = [...Array(size)];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [...Array(size)];
+  }
+  let value = 1;
+  let top = 0;
+  let bottom = size - 1;
+  let left = 0;
+  let right = size - 1;
+
+  while (value <= size ** 2) {
+    for (let i = left; i <= right; i += 1) {
+      matrix[top][i] = value;
+      value += 1;
+    }
+    top += 1;
+    for (let i = top; i <= bottom; i += 1) {
+      matrix[i][right] = value;
+      value += 1;
+    }
+    right -= 1;
+    for (let i = right; i >= left; i -= 1) {
+      matrix[bottom][i] = value;
+      value += 1;
+    }
+    bottom -= 1;
+    for (let i = bottom; i >= top; i -= 1) {
+      matrix[i][left] = value;
+      value += 1;
+    }
+    left += 1;
+  }
+  return matrix;
+}
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
@@ -363,9 +395,105 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+// function shuffleChar(str, iterations) {
+//   if (iterations === 0) return str;
+//   let odd = '';
+//   let even = '';
+//   for (let index = 0; index < str.length; index += 1) {
+//     if (index % 2 !== 0) {
+//       odd += str[index];
+//     } else {
+//       even += str[index];
+//     }
+//   }
+//   const shuffled = even + odd;
+//   return shuffleChar(shuffled, iterations - 1);
+// }
+
+function shuffleChar(str, iterations) {
+  let result = str;
+  const shuffle = (text) => {
+    let odd = '';
+    let even = '';
+    for (let index = 0; index < text.length; index += 1) {
+      if (index % 2 !== 0) {
+        odd += text[index];
+      } else {
+        even += text[index];
+      }
+    }
+    return even + odd;
+  };
+
+  for (let index = 0; index < iterations; index += 1) {
+    result = shuffle(result);
+  }
+  return result;
 }
+
+// function shuffleChar(str, iterations) {
+//   let result = str;
+
+//   for (let index = 0; index < iterations; index += 1) {
+//     result = result.replace(/(.)./g, '$1') + result.replace(/.(.)/g, '$1');
+//   }
+//   return result;
+// }
+
+// function shuffleChar(str, iterations) {
+//   let result = str;
+
+//   const shuffle = (text) => {
+//     const strLength = text.length;
+//     const shuffled = new Array(strLength);
+
+//     let evenIndex = 0;
+//     let oddIndex = Math.ceil(strLength / 2);
+//     for (let i = 0; i < strLength; i += 1) {
+//       if (i % 2 === 0) {
+//         shuffled[evenIndex] = text[i];
+//         evenIndex += 1;
+//       } else {
+//         shuffled[oddIndex] = text[i];
+//         oddIndex += 1;
+//       }
+//     }
+
+//     let resultStr = '';
+//     for (let i = 0; i < strLength; i += 1) {
+//       resultStr += shuffled[i];
+//     }
+
+//     return resultStr;
+//   };
+
+//   for (let i = 0; i < iterations; i += 1) {
+//     result = shuffle(result);
+//   }
+
+//   return result;
+// }
+
+// function shuffleChar(str, iterations) {
+//   let result = str;
+
+//   for (let iter = 0; iter < iterations; iter += 1) {
+//     const strLength = result.length;
+//     const half = Math.ceil(strLength / 2);
+//     let shuffled = '';
+
+//     for (let i = 0, j = half; i < half; i += 1, j += 1) {
+//       shuffled += result[i];
+//       if (j < strLength) {
+//         shuffled += result[j];
+//       }
+//     }
+
+//     result = shuffled;
+//   }
+
+//   return result;
+// }
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
@@ -384,9 +512,27 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-}
+const getNearestBigger = (number) => {
+  const str = Array.from(`${number}`);
+  const lstIdx = str.length - 1;
+  let i;
+  for (i = lstIdx - 1; i >= 0; i -= 1) {
+    if (str[i] < str[i + 1]) {
+      break;
+    }
+  }
+  let j = lstIdx;
+  while (str[j] <= str[i]) {
+    j -= 1;
+  }
+  [str[i], str[j]] = [str[j], str[i]];
+  return Number(
+    [
+      ...str.filter((_, idx) => idx <= i),
+      ...str.filter((_, idx) => idx > i).sort((a, b) => a - b),
+    ].join('')
+  );
+};
 
 module.exports = {
   isPositive,
