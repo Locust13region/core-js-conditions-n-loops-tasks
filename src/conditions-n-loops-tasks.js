@@ -410,33 +410,37 @@ function sortByAsc(/* arr */) {
 //   return shuffled;
 // }
 
-function shuffleChar(str, iterations) {
-  let shuffled = str;
-  let result = '';
-  const shuffleFunc = (text) => {
-    const prepared = [0];
-    let idxEven = 0;
-    let idxOdd = 1;
-    for (let j = 0; j < text.length; j += 1) {
-      if (j < text.length / 2) {
-        prepared[j] = `${text[idxEven]}`;
-        idxEven += 2;
-      } else {
-        prepared[j] = `${text[idxOdd]}`;
-        idxOdd += 2;
-      }
-    }
-    return prepared;
-  };
-  for (let i = 1; i <= iterations; i += 1) {
-    shuffled = shuffleFunc(shuffled);
-  }
-  for (let i = 0; i < str.length; i += 1) {
-    result += `${shuffled[i]}`;
-  }
-  return result;
+function shuffleChar(/* str, iterations */) {
+  throw new Error('Not implemented');
 }
-console.log(shuffleChar('012345', 2));
+
+// function shuffleChar(str, iterations) {
+//   let shuffled = str;
+//   let result = '';
+//   const shuffleFunc = (text) => {
+//     const prepared = [0];
+//     let idxEven = 0;
+//     let idxOdd = 1;
+//     for (let j = 0; j < text.length; j += 1) {
+//       if (j < text.length / 2) {
+//         prepared[j] = `${text[idxEven]}`;
+//         idxEven += 2;
+//       } else {
+//         prepared[j] = `${text[idxOdd]}`;
+//         idxOdd += 2;
+//       }
+//     }
+//     return prepared;
+//   };
+//   for (let i = 1; i <= iterations; i += 1) {
+//     shuffled = shuffleFunc(shuffled);
+//   }
+//   for (let i = 0; i < str.length; i += 1) {
+//     result += `${shuffled[i]}`;
+//   }
+//   return result;
+// }
+// console.log(shuffleChar('012345', 2));
 // function shuffleChar(str, iterations) {
 //   if (iterations === 0) return str;
 //   const shuffled = str[0] + str[2] + str[4] + str[1] + str[3] + str[5];
