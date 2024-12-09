@@ -396,155 +396,30 @@ function sortByAsc(/* arr */) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 
-// function shuffleChar(str, iterations) {
-//   let shuffled = str;
-//   for (let i = 1; i <= iterations; i += 1) {
-//     shuffled =
-//       shuffled[0] +
-//       shuffled[2] +
-//       shuffled[4] +
-//       shuffled[1] +
-//       shuffled[3] +
-//       shuffled[5];
-//   }
-//   return shuffled;
-// }
+function shuffleChar(str, iterations) {
+  let result = str;
+  let iterationCount = iterations;
+  const shuffle = (text) => {
+    let odd = '';
+    let even = '';
+    for (let index = 0; index < text.length; index += 1) {
+      if (index % 2 !== 0) {
+        odd += text[index];
+      } else {
+        even += text[index];
+      }
+    }
+    return even + odd;
+  };
 
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+  for (let index = 1; index <= iterationCount; index += 1) {
+    result = shuffle(result);
+    if (result === str) {
+      iterationCount = index + (iterationCount % index);
+    }
+  }
+  return result;
 }
-
-// function shuffleChar(str, iterations) {
-//   let shuffled = str;
-//   let result = '';
-//   const shuffleFunc = (text) => {
-//     const prepared = [0];
-//     let idxEven = 0;
-//     let idxOdd = 1;
-//     for (let j = 0; j < text.length; j += 1) {
-//       if (j < text.length / 2) {
-//         prepared[j] = `${text[idxEven]}`;
-//         idxEven += 2;
-//       } else {
-//         prepared[j] = `${text[idxOdd]}`;
-//         idxOdd += 2;
-//       }
-//     }
-//     return prepared;
-//   };
-//   for (let i = 1; i <= iterations; i += 1) {
-//     shuffled = shuffleFunc(shuffled);
-//   }
-//   for (let i = 0; i < str.length; i += 1) {
-//     result += `${shuffled[i]}`;
-//   }
-//   return result;
-// }
-// console.log(shuffleChar('012345', 2));
-// function shuffleChar(str, iterations) {
-//   if (iterations === 0) return str;
-//   const shuffled = str[0] + str[2] + str[4] + str[1] + str[3] + str[5];
-//   return shuffleChar(shuffled, iterations - 1);
-// }
-
-// function shuffleChar(str, iterations) {
-//   if (iterations === 0) return str;
-//   let odd = '';
-//   let even = '';
-//   for (let index = 0; index < str.length; index += 1) {
-//     if (index % 2 !== 0) {
-//       odd += str[index];
-//     } else {
-//       even += str[index];
-//     }
-//   }
-//   const shuffled = even + odd;
-//   return shuffleChar(shuffled, iterations - 1);
-// }
-
-// function shuffleChar(str, iterations) {
-//   let result = str;
-//   const shuffle = (text) => {
-//     let odd = '';
-//     let even = '';
-//     for (let index = 0; index < text.length; index += 1) {
-//       if (index % 2 !== 0) {
-//         odd += text[index];
-//       } else {
-//         even += text[index];
-//       }
-//     }
-//     return even + odd;
-//   };
-
-//   for (let index = 0; index < iterations; index += 1) {
-//     result = shuffle(result);
-//   }
-//   return result;
-// }
-
-// function shuffleChar(str, iterations) {
-//   let result = str;
-//   for (let index = 0; index < iterations; index += 1) {
-//     result = result.replace(/(.)./g, '$1') + result.replace(/.(.)/g, '$1');
-//   }
-//   return result;
-// }
-
-// function shuffleChar(str, iterations) {
-//   let result = str;
-
-//   const shuffle = (text) => {
-//     const strLength = text.length;
-//     const shuffled = new Array(strLength);
-
-//     let evenIndex = 0;
-//     let oddIndex = Math.ceil(strLength / 2);
-//     for (let i = 0; i < strLength; i += 1) {
-//       if (i % 2 === 0) {
-//         shuffled[evenIndex] = text[i];
-//         evenIndex += 1;
-//       } else {
-//         shuffled[oddIndex] = text[i];
-//         oddIndex += 1;
-//       }
-//     }
-
-//     let resultStr = '';
-//     for (let i = 0; i < strLength; i += 1) {
-//       resultStr += shuffled[i];
-//     }
-
-//     return resultStr;
-//   };
-
-//   for (let i = 0; i < iterations; i += 1) {
-//     result = shuffle(result);
-//   }
-
-//   return result;
-// }
-
-// function shuffleChar(str, iterations) {
-//   let result = str;
-
-//   for (let iter = 0; iter < iterations; iter += 1) {
-//     const strLength = result.length;
-//     const half = Math.ceil(strLength / 2);
-//     let shuffled = '';
-
-//     for (let i = 0, j = half; i < half; i += 1, j += 1) {
-//       shuffled += result[i];
-//       if (j < strLength) {
-//         shuffled += result[j];
-//       }
-//     }
-
-//     result = shuffled;
-//   }
-
-//   return result;
-// }
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
